@@ -32,9 +32,9 @@ Almacena la información de las direcciones, como la dirección física, ciudad 
 Este esquema de base de datos permite gestionar de manera eficiente la información relacionada con los medicamentos, proveedores, pedidos, empleados y ventas en una farmacia, y consta de u servidor MASTER y 2 SLAVES
 
 
-## Diagrama base de datos Farmacia
+## Esquema base de datos Farmacia
 
-![App Screenshot](https://i.ibb.co/8cG2zWw/Diagrama-DB-Farmacia.png)
+![App Screenshot](https://i.ibb.co/wQ6xspr/Diagrama.png)
 
 
 ## Correr el proyecto localmente
@@ -71,3 +71,8 @@ Correr el comando de docker con el archivo de configuracion docker-compose.yml
 
 ![App Screenshot](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQsDiApZXRJ2wqCDkZytR4UyC44VKrZ9H7CaTF34FtIYPW2tvNnQMGEkb1ebVL6Xq7Pls&usqp=CAU)
 ![App Screenshot](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-rwN_7co1mGn5js-QPy3YG2RH27m5G6XvYWEUQG74i-3f1egzvAUhUZHYqhTwmScQ9-k&usqp=CAU)
+
+
+## Diagrama UML base de datos Farmacia
+
+![App Screenshot](https://i.ibb.co/8cG2zWw/Diagrama-DB-Farmacia.png)
