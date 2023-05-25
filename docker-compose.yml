@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: mysql:debian
+    command: --server-id=1 --log-bin=mysql-bin --binlog-do-db=FARMACIA
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: FARMACIA
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+
+  db_slave1:
+    image: mysql:debian
+    command: --server-id=2 --skip-slave-start
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: FARMACIA
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data_slave1:/var/lib/mysql
+
+  db_slave2:
+    image: mysql:debian
+    command: --server-id=3 --skip-slave-start
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: FARMACIA
+    ports:
+    - "3308:3306"
+    volumes:
+      - ./data_slave2:/var/lib/mysql
+
