@@ -11,14 +11,6 @@ CREATE TABLE direcciones (
     id_ciudad INT,
     FOREIGN KEY (id_ciudad) REFERENCES ciudades(id_ciudad)
 );
-CREATE TABLE clientes (
-    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(30),
-    apellido VARCHAR(30),
-    telefono VARCHAR(20),
-    id_direccion INT,
-    FOREIGN KEY (id_direccion) REFERENCES direcciones(id_direccion)
-);
 CREATE TABLE empleados (
     id_empleado INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(30),
@@ -60,17 +52,16 @@ CREATE TABLE detalles_pedido (
 );
 CREATE TABLE ventas (
     id_venta INT PRIMARY KEY AUTO_INCREMENT,
-    id_medicamento INT,
-    cantidad INT,
-    precio_unitario DECIMAL(10, 2),  
-    FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id_medicamento)
+    id_empleado INT,
+    fecha DATETIME,
+    FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)
 );
+
 CREATE TABLE detalles_venta (
     id_venta INT,
-    id_empleado INT,
-	id_cliente INT,
-    fecha DATETIME,
-	FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
-    FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado),
-    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta)
+    id_medicamento INT,
+    cantidad INT,
+    precio_unitario DECIMAL(10, 2),
+    FOREIGN KEY (id_venta) REFERENCES ventas(id_venta),
+    FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id_medicamento)
 );

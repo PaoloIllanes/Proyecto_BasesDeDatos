@@ -3,7 +3,7 @@ USE Farmacia;
 DELIMITER //
 -- Trigger para verificar la disponibilidad del stock de un producto antes de realizar una venta
 CREATE TRIGGER validar_stock_venta
-BEFORE INSERT ON ventas
+BEFORE INSERT ON detalles_venta
 FOR EACH ROW
 BEGIN
     DECLARE stock_actual INT;
@@ -14,7 +14,7 @@ BEGIN
 END;
 -- Trigger para actualizar el stock de medicamentos después de una venta
 CREATE TRIGGER actualizar_stock_venta
-AFTER INSERT ON ventas
+AFTER INSERT ON detalles_venta
 FOR EACH ROW
 BEGIN
     UPDATE medicamentos
@@ -30,9 +30,9 @@ BEGIN
     SET stock = stock + NEW.cantidad
     WHERE id_medicamento = NEW.id_medicamento;
 END;
--- Trigger para verificar el formato del nombre del cliente
-CREATE TRIGGER verificar_nombre_cliente
-BEFORE INSERT ON clientes
+-- Trigger para verificar el formato del nombre del empleado
+CREATE TRIGGER verificar_nombre_empleados
+BEFORE INSERT ON empleados
 FOR EACH ROW
 BEGIN
     DECLARE contains_special_chars INT;
@@ -42,7 +42,7 @@ BEGIN
     -- Verificar si el nombre contiene números
     SET contains_numbers = (SELECT CASE WHEN NEW.nombre REGEXP '[0-9]' THEN 1 ELSE 0 END);
     IF contains_special_chars = 1 OR contains_numbers = 1 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nombre del cliente no puede contener números ni caracteres especiales.';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nombre del empleado no puede contener numeros ni caracteres especiales.';
     END IF;
 END;
 -- Trigger para eliminar detalles de venta relacionados cuando se elimina una venta:

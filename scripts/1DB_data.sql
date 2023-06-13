@@ -17,13 +17,6 @@ VALUES ( "Miraflores, Calle 14", 2),
        ( "Mallasa, Calle 25", 1),
        ( "Mallasilla, Calle 33", 4),
        ( "Achocalla, Calle 20", 2);
-       
-INSERT INTO clientes (nombre,apellido, telefono,id_direccion)
-VALUES ( "Paolo","Illanes",34234324,1),
-       ( "Andres","Paredes",32435325,2),
-       ( "Alvaro","Alba",32532523,3),
-       ( "Santiago","Maldonado",532532523,4),
-       ( "Jose","Garcia",34325235,5);
 
 INSERT INTO empleados (nombre,apellido, telefono, email,id_direccion)
 VALUES ( "Jose","Lara", 12345,"6@gmail.com",7),
@@ -55,3 +48,13 @@ VALUES ( 1,NOW(),"entregado"),
 INSERT INTO detalles_pedido (id_pedido,id_medicamento, cantidad,precio_unitario)
 VALUES ( 1,2,300,2),
        ( 4,5,400,40);
+
+INSERT INTO ventas (id_empleado,fecha)
+VALUES ( 1,NOW()),
+       ( 2,NOW());
+
+INSERT INTO detalles_venta (id_venta,id_medicamento, cantidad,precio_unitario)
+VALUES ( 1,2,3,2),
+       ( 1,5,4,40),
+       ( 2,3,10,0),
+       ( 2,4,10,20);
