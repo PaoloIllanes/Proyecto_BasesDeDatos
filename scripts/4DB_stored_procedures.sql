@@ -22,3 +22,27 @@ BEGIN
     WHERE pedidos.estado <> 'entregado';
 END;
 
+CREATE PROCEDURE ObtenerMedicamentosAgotados()
+BEGIN
+    SELECT * FROM medicamentos WHERE stock = 0;
+END;
+
+CREATE PROCEDURE ObtenerDetallesVentaPorEmpleado(
+    IN id_empleado INT
+)
+BEGIN
+    SELECT dv.*, m.nombre AS nombre_medicamento
+    FROM detalles_venta dv
+    INNER JOIN medicamentos m ON dv.id_medicamento = m.id_medicamento
+    INNER JOIN ventas v ON dv.id_venta = v.id_venta
+    WHERE v.id_empleado = id_empleado;
+END;
+
+CREATE PROCEDURE ObtenerMedicamentosPorNombre(
+    IN nombre_medicamento VARCHAR(30)
+)
+BEGIN
+    SELECT * FROM medicamentos WHERE nombre LIKE CONCAT('%', nombre_medicamento, '%');
+END;
+
+

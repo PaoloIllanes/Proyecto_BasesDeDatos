@@ -65,3 +65,11 @@ CREATE TABLE detalles_venta (
     FOREIGN KEY (id_venta) REFERENCES ventas(id_venta),
     FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id_medicamento)
 );
+
+CREATE TABLE audit_ventas (
+    id_audit INT PRIMARY KEY AUTO_INCREMENT,
+    accion VARCHAR(1),
+    id_empleado INT,
+    email VARCHAR(100),
+    fecha DATETIME
+);

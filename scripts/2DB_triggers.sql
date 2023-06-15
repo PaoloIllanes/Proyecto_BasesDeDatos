@@ -55,4 +55,57 @@ BEGIN
 END;
 
 
+-- Trigger tabla de auditoria ventas
+CREATE TRIGGER verificar_insert_venta
+AFTER INSERT ON ventas
+FOR EACH ROW
+BEGIN
+  DECLARE id INT;
+  DECLARE nombre_empleado VARCHAR(20);
+  DECLARE email VARCHAR(20);
+ 
+  SELECT id_empleado INTO id FROM empleados WHERE id_empleado = NEW.id_empleado;
+   SELECT salario INTO nombre_empleado FROM empleado WHERE id_empleado = NEW.id_empleado;
+    SELECT email INTO email FROM empleados WHERE id_empleado = NEW.id_empleado;
+ 
+INSERT INTO audit_ventas (accion,id_empleado,nombre_empleado,email,fecha)VALUES
+("I", id,nombre_empleado,email,NOW());
+ 
+END;
+
+CREATE TRIGGER verificar_delete_venta
+BEFORE DELETE ON ventas
+FOR EACH ROW
+BEGIN
+  DECLARE id INT;
+  DECLARE nombre_empleado VARCHAR(20);
+  DECLARE email VARCHAR(20);
+ 
+  SELECT id_empleado INTO id FROM empleados WHERE id_empleado = OLD.id_empleado;
+   SELECT salario INTO nombre_empleado FROM empleado WHERE id_empleado = OLD.id_empleado;
+    SELECT email INTO email FROM empleados WHERE id_empleado = OLD.id_empleado;
+ 
+INSERT INTO audit_ventas (accion,id_empleado,nombre_empleado,email,fecha)VALUES
+("D", id,nombre_empleado,email,NOW());
+ 
+END;
+
+CREATE TRIGGER verificar_update_venta
+AFTER UPDATE ON ventas
+FOR EACH ROW
+BEGIN
+  DECLARE id INT;
+  DECLARE nombre_empleado VARCHAR(20);
+  DECLARE email VARCHAR(20);
+ 
+  SELECT id_empleado INTO id FROM empleados WHERE id_empleado = NEW.id_empleado;
+   SELECT salario INTO nombre_empleado FROM empleado WHERE id_empleado = NEW.id_empleado;
+    SELECT email INTO email FROM empleados WHERE id_empleado = NEW.id_empleado;
+ 
+INSERT INTO audit_ventas (accion,id_empleado,nombre_empleado,email,fecha)VALUES
+("U", id,nombre_empleado,email,NOW());
+ 
+END;
+
+
 

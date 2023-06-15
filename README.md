@@ -1,12 +1,15 @@
 
-# Base de datos para Hospital
+# Base de datos para farmacia de hospital
 
 ## Implementación De Un Sistema Software Para El Control Interno De Recepción, Entrega Y Control Interno De Inventario De Los Medicamentos
 
 La base de datos "FARMACIA" ,está diseñada para gestionar la información de la farmacia del hospital que se encarga de recibir y distribuir medicamentos. A continuación, se ofrece una breve descripción de cada una de las tablas que componen la base de datos:
 
+#### "Ciudades":
+ Registra las ciudades para las direcciones, incluyendo detalles como el codigo postal y el nombre. El identificador único (id_ciudad) se utiliza como clave primaria, 
+
 #### "Direcciones": 
-Almacena la información de las direcciones, como la dirección física, ciudad y código postal. Cada dirección tiene un identificador único (id_direccion) que se utiliza como clave primaria.
+Almacena la información de las direcciones, como la dirección física. Cada dirección tiene un identificador único (id_direccion) que se utiliza como clave primaria y se establece una relación con la tabla "Ciudades" mediante la clave foránea (id_ciudad).
 
 #### "Medicamentos":
  Contiene información sobre los medicamentos disponibles en la farmacia, como su nombre, descripción, precio y cantidad en stock. Cada medicamento tiene un identificador único (id_medicamento) como clave primaria.
@@ -32,9 +35,9 @@ Almacena la información de las direcciones, como la dirección física, ciudad 
 Este esquema de base de datos permite gestionar de manera eficiente la información relacionada con los medicamentos, proveedores, pedidos, empleados y ventas en una farmacia, y consta de u servidor MASTER y 2 SLAVES
 
 
-## Esquema base de datos Farmacia
+## Base de datos Farmacia
 
-![App Screenshot](https://i.ibb.co/wQ6xspr/Diagrama.png)
+![App Screenshot](https://i.ibb.co/N394ftK/Diagrama-DB-Farmacia.png)
 
 
 ## Correr el proyecto localmente
@@ -59,20 +62,65 @@ Ir al directorio del proyecto
 
 Correr el comando de docker con el archivo de configuracion docker-compose.yml
 
-```bash
+```SQL
   docker-compose up
 ```
 
 ## Conectarse con un cliente gestor de base de datos como Mysql Workbench o DBeaver
 
-- Master : localhost:3306
-- Slave1 : localhost:3307
-- Slave2 : localhost:3308
+- DB : localhost:3306
 
-![App Screenshot](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQsDiApZXRJ2wqCDkZytR4UyC44VKrZ9H7CaTF34FtIYPW2tvNnQMGEkb1ebVL6Xq7Pls&usqp=CAU)
-![App Screenshot](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-rwN_7co1mGn5js-QPy3YG2RH27m5G6XvYWEUQG74i-3f1egzvAUhUZHYqhTwmScQ9-k&usqp=CAU)
+## Triggers implementados:
+
+- Trigger para verificar la disponibilidad del stock de un producto antes de realizar una venta
+
+- Trigger para actualizar el stock de medicamentos después de una venta
+
+- Trigger para actualizar el stock de medicamentos después de una compra
+
+- Trigger para verificar el formato del nombre del empleado
+
+- Trigger para eliminar detalles de venta relacionados cuando se elimina una venta:
+
+## Stored procedures implementados:
 
 
-## Diagrama UML base de datos Farmacia
+#### ->  Obtener medicamentos bajo cierto stock:
 
-![App Screenshot](https://i.ibb.co/8cG2zWw/Diagrama-DB-Farmacia.png)
+```bash
+  ObtenerMedicamentosBajoStock(cantidad)
+```
+
+#### ->  Obtener pedidos pendientes de los proveedores:
+
+```bash
+  ObtenerPedidosPendientesConProveedor()
+```
+
+#### ->  Obtener medicamentos completamente agotados:
+
+```bash
+  ObtenerMedicamentosAgotados()
+```
+
+#### ->  Obtener todos los detalles de venta de un empleado:
+
+```bash
+  ObtenerDetallesVentaPorEmpleado(id_empleado)
+```
+
+#### ->  Obtener medicamentos por nombre:
+
+```bash
+  ObtenerMedicamentosPorNombre(nombre_medicamento)
+```
+## Consultas e indices
+### Consultas potencialmente problemáticas :
+- Obtener todos los medicamentos con un precio superior a cierto valor.
+- Obtener todos los pedidos realizados hacia un proveedor en un rango de fechas específico, donde los pedidos estén en un estado determinado.
+- Obtener todos los medicamentos con un stock inferior a cierta cantidad.
+- Obtener todas las ventas realizadas en una fecha en específico .
+
+### Indices que solucionan las consultas anteriores:
+
+![App Screenshot](https://i.ibb.co/CBmm3wg/indices.png)
