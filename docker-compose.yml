@@ -1,12 +1,62 @@
 version: '3'
 services:
-  db:
-    image: mysql:debian
+  node1:
+    image: cassandra:latest
+    container_name: cassandra-node1
+    networks:
+      - cassandra-net
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: Farmacia
+      - CASSANDRA_CLUSTER_NAME=MyCluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2,cassandra-node3
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+      - CASSANDRA_AUTO_BOOTSTRAP=false
+      - CASSANDRA_USERNAME=root
+      - CASSANDRA_PASSWORD=root
     ports:
-      - "3306:3306"
+      - 9042:9042
     volumes:
-      - ./scripts:/docker-entrypoint-initdb.d
-
+      - ./data/node1:/var/lib/cassandra
+  node2:
+    image: cassandra:latest
+    container_name: cassandra-node2
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME=MyCluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2,cassandra-node3
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack2
+      - CASSANDRA_AUTO_BOOTSTRAP=false
+      - CASSANDRA_USERNAME=root
+      - CASSANDRA_PASSWORD=root
+    ports:
+      - 9043:9042
+    volumes:
+      - ./data/node2:/var/lib/cassandra
+  node3:
+    image: cassandra:latest
+    container_name: cassandra-node3
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME=MyCluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2,cassandra-node3
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack3
+      - CASSANDRA_AUTO_BOOTSTRAP=false
+      - CASSANDRA_USERNAME=root
+      - CASSANDRA_PASSWORD=root
+    ports:
+      - 9044:9042
+    volumes:
+      - ./data/node3:/var/lib/cassandra
+networks:
+  cassandra-net:
+volumes:
+  node1-data:
+  node2-data:
+  node3-data:
