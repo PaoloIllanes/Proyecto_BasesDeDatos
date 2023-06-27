@@ -74,7 +74,7 @@
 #### ->  Repetir el proceso para cada uno de los nodos con sus respectivas credenciales y puertos:
 
 ![App Screenshot](https://i.ibb.co/fnSzHWj/stax1.png)
-![App Screenshot](https://i.ibb.co/JQbz51s/stax2.png)
+![App Screenshot](https://camo.githubusercontent.com/fd8eaaf035ce04649c1699611f3dd4c32732c0a9055f57d411726d3f663f53d3/68747470733a2f2f692e6962622e636f2f666e537a48576a2f73746178312e706e67)
 
 
 #### ->  Realizar las pruebas de replicacion e integridad del cluster con los siguientes scripts que se encuentran en la carpeta de "scripts_pruebas"
